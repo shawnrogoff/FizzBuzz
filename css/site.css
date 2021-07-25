@@ -1,6 +1,6 @@
 :root{
     --primary-color: #1d5888;
-    --secondary-color: #FFEA7A;
+    --secondary-color: #ee2c26;
     --dark-color: #292929;
     --white-color: #dfe9f3;
 }
@@ -61,6 +61,19 @@ color: #0A71B8;
 
 .checklist >li i{
     color: var(--secondary-color);
+}
+
+.Fizz{
+    color: green;
+}
+
+.Buzz{
+    color: blue;
+}
+
+.FizzBuzz{
+    color: red;
+    font-weight: bold;
 }
 
 code[class*="language-"],

@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>App Name: A Coding Project By Shawn Rogoff</title>
+    <title>FizzBuzz: A Coding Project By Shawn Rogoff</title>
     <link rel="shortcut icon" type="image/jpg" href="/img/ShawnRogoffFavicon.ico"/>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -30,7 +30,7 @@
     <!-- Nav Section -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand logoFont"><img src="/img/ShawnRogoffMarkLight.png" class="d-inline-block align-text-top" width="30" height="24"> App Name</a>
+            <a class="navbar-brand logoFont"><img src="/img/ShawnRogoffMarkLight.png" class="d-inline-block align-text-top" width="30" height="24"> FizzBuzz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -47,7 +47,7 @@
                         <a class="nav-link active" aria-current="page" href="code.html">The Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="#">Git Repo</a>
+                        <a class="nav-link" target="_blank" href="https://github.com/shawnrogoff/FizzBuzz">Git Repo</a>
                         <!-- put github link in the above href -->
                     </li>
                     <li class="nav-item">
@@ -62,24 +62,138 @@
     <!-- Main Section -->
     <main class="flex-shrink-0">
         <div class="container px-5 py-5 mt-5">
-            <h2 class="border-1 border-bottom border-dark">The Code for APP NAME.</h2>
+            <h2 class="border-1 border-bottom border-dark">The Code for FizzBuzz.</h2>
             <div class="row row-cols-1 row-cols-lg-2">
                 <!-- Code Side -->
                 <div class="col-lg-8">
                     <pre class="line-numbers"><code class="language-javascript">
                         <!-- Put valid javascript here -->
-                        // Call Hello World
-                        function HelloWorld(){
-                            alert("Hello World!");
+                        // Get values from webpage
+                        function getValues() {
+                            let fizzValue = document.getElementById("fizzValue").value;
+                            let buzzValue = document.getElementById("buzzValue").value;
+
+                            // this step ensures the values entered are converted to integers; decimals are truncated
+                            fizzValue = parseInt(fizzValue);
+                            buzzValue = parseInt(buzzValue);
+
+                            if(Number.isInteger(fizzValue) && Number.isInteger(buzzValue)){
+                                // call generateNumbers
+                                let fizzBuzzArray = fizzBuzz(fizzValue, buzzValue);
+                                // call displayNumbers
+                                displayValues(fizzBuzzArray);
+                            } else {
+                                alert("You must enter integers!");
+                            }   
+                        }
+
+                        // Create FizzBuzz array
+                        function fizzBuzz(fizzValue, buzzValue) {
+                            // create our empty array to hold our values
+                            let returnArray = [];
+                            
+                            // use a for loop with logic to solve our problem
+                            for (let i = 1; i <= 100; i++){
+                                        
+                                if(i % fizzValue == 0 && i % buzzValue == 0){
+                                    returnArray.push("FizzBuzz");
+                                } else if (i % fizzValue == 0) { // numbers divisible by 3
+                                    returnArray.push("Fizz");
+                                } else if (i % buzzValue == 0) { // numbers divisible by 5
+                                    returnArray.push("Buzz");
+                                } else { // numbers not divisible by 3 or 5 are simply passed as the number
+                                    returnArray.push(i);
+                                }
+                            }
+                            // return our array to the getValues function
+                            return returnArray;
+                        }
+
+                        // Display FizzBuzz results to page
+                        function displayValues(fizzBuzzArray) {
+                            
+                            // get the table body element from the page
+                            let tableBody = document.getElementById("results");
+
+                            // get the template from the app page
+                            let templateRow = document.getElementById("fizzbuzzTemplate");
+
+                            // clear the table first
+                            tableBody.innerHTML = "";
+
+                            for (let i = 0; i < fizzBuzzArray.length; i += 5) {
+                                
+                                let tableRow = document.importNode(templateRow.content, true);
+
+                                // grab just the td elements, and put them into an array
+                                let rowCols = tableRow.querySelectorAll("td");
+                                
+                                rowCols[0].classList.add(fizzBuzzArray[i])
+                                rowCols[0].textContent = fizzBuzzArray[i];
+
+                                rowCols[1].classList.add(fizzBuzzArray[i+1])
+                                rowCols[1].textContent = fizzBuzzArray[i+1];
+
+                                rowCols[2].classList.add(fizzBuzzArray[i+2])
+                                rowCols[2].textContent = fizzBuzzArray[i+2];
+
+                                rowCols[3].classList.add(fizzBuzzArray[i+3])
+                                rowCols[3].textContent = fizzBuzzArray[i+3];
+
+                                rowCols[4].classList.add(fizzBuzzArray[i+4])
+                                rowCols[4].textContent = fizzBuzzArray[i+4];
+
+                                tableBody.appendChild(tableRow);
+                            }   
                         }
                     </code>
                     </pre>
                 </div>
                 <!-- Description Side -->
                 <div class="col-lg-4">
-                    <p>The Code is structed in one function.</p>
-                    <h5>Hello World</h5>
-                    <p>Hellow World is a function that displays an alert with a message of "Hello World!"</p>
+                    <p class="pt-1">Here are some brief explanations of the functions used in this project.</p>
+                    <h5>getValues()</h5>
+                    <p>
+                        &emsp;This function starts by taking in the values entered by the user, and storing them 
+                        in the appropriate variables. We then parse the variables, and test them to make sure they 
+                        are integers. Once they pass this check they are passed into the <i>fizzBuzz( )</i> function 
+                        as parameters. An array is returned, and is held in the variable <i>fizzBuzzArray</i>. This 
+                        variable is then passed into the <i>displayValues( )</i> function as a parameter to finish 
+                        the challenge.
+                    </p>
+                    <h5>fizzBuzz()</h5>
+                    <p>
+                        &emsp;This function takes in two variables: <i>fizzValue</i> and <i>buzzValue</i>. 
+                        First, we create an empty array to store our values in. This array will be returned 
+                        to the <i>getValues( )</i> function later. We create a for loop to count from 1 to 100. 
+                        Inside the for loop we apply our FizzBuzz logic. This logic is a series of if/else if/else 
+                        statements following the rules of the FizzBuzz challenge.
+                    </p>
+                    <p>
+                        &emsp;If the number is divisible by both the <i>fizzValue</i> and the <i>buzzValue</i>, then we 
+                        assign the value of "FizzBuzz." If the number is divisible by just the <i>fizzValue</i>, 
+                        then we assign the value of "Fizz." If the number is divisible by just the <i>buzzValue</i>, 
+                        then we assign the value of "Buzz." If the number is not divisible by either, then we simply 
+                        pass on the number to the array we intend to return.
+                    </p>
+                    <h5>displayValues()</h5>
+                    <p>
+                        &emsp;This function takes in the array variable with our numbers from 1 to 100 
+                        with the Fizz, Buzz, and FizzBuzz values inserted where appropriate. To display 
+                        this array we are using an html template, which we put inside our html code with 
+                        an id value of <i>fizzbuzzTemplate</i>. We create a <i>tableBody</i> variable, and 
+                        set it equal to the element of "results," which contains our table. We then bring in 
+                        the template, and assign it to the variable <i>templateRow</i>. Next, we set the inner 
+                        html of our table to an empty string to avoid stacking results on top of each other 
+                        in the event a user clicks the submit button multiple times. The for loop here is 
+                        designed to run the length of the array, and to increment in steps of five since we 
+                        want to display five values on each table row. We also further style the table elements 
+                        by adding a class equal to their value. Inside our CSS file we added styles to classes 
+                        named "Fizz," "Buzz," and "FizzBuzz." Values that are simply numbers have those classes 
+                        added to them, but since there are no rules for them nothing is changed. At the end we 
+                        add each newly constructed table row to our table body, and loop over the next five 
+                        values from the <i>fizzbuzzArray</i>.
+                    </p>
                 </div>
             </div>
         </div>
